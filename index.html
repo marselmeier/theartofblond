@@ -113,15 +113,14 @@
     letter-spacing:0.02em;
   }
 
-  /* Reveal on scroll */
-  .reveal{
-    opacity:0;
-    transform:translateY(28px);
-    transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1);
+  /* Fade-in on load (CSS-only, no JS dependency — content is always visible even if JS fails) */
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(20px); }
+    to{ opacity:1; transform:translateY(0); }
   }
-  .reveal.in{
+  .reveal{
     opacity:1;
-    transform:translateY(0);
+    animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) both;
   }
 
   /* ---------- HERO ---------- */
@@ -526,7 +525,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="wrap hero-grid">
-    <div class="reveal in">
+    <div class="reveal">
       <span class="eyebrow">The Art of Blond — Genesis</span>
       <h1>Domine a ciência por trás do <em>loiro perfeito</em> — e transforme cada cliente em vitrine do seu talento.</h1>
       <p class="sub">O método definitivo para coloristas que querem executar loiros impecáveis com precisão cirúrgica — sem medo de abrir o papel, sem surpresas no fundo de clareamento, sem quebrar um fio sequer.</p>
@@ -735,18 +734,7 @@
   © The Art of Blond: Genesis — Todos os direitos reservados.
 </footer>
 
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el => io.observe(el));
-</script>
+
 
 </body>
 </html>
